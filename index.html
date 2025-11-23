@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kuis Pintar Modern</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="/socket.io/socket.io.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+    <div class="background-anim"></div>
+
+    <div class="glass-container">
+        <header>
+            <div class="logo">
+                <i class="fas fa-brain fa-2x"></i>
+                <h1>KUIS PINTAR</h1>
+            </div>
+        </header>
+
+        <div id="welcome-screen" class="screen active">
+            <h2>Selamat Datang</h2>
+            <div class="input-wrapper">
+                <i class="fas fa-user"></i>
+                <input type="text" id="name-input" placeholder="Nama Panggilan" autocomplete="off">
+            </div>
+            <button id="submit-name" class="btn-main" disabled>MASUK <i class="fas fa-arrow-right"></i></button>
+        </div>
+        
+        <div id="start-menu" class="screen">
+            <h3 class="welcome-text">Halo, <span id="display-username" class="highlight-text">User</span>!</h3>
+            <div class="menu-grid">
+                <button id="btn-mabar" class="btn-menu purple">
+                    <i class="fas fa-users fa-2x"></i>
+                    <span>Mabar (Online)</span>
+                </button>
+                <button id="btn-latihan" class="btn-menu orange">
+                    <i class="fas fa-gamepad fa-2x"></i>
+                    <span>Latihan (Solo)</span>
+                </button>
+            </div>
+        </div>
+
+        <div id="multiplayer-menu" class="screen">
+            <h2>Lobby Mabar</h2>
+            <div class="lobby-controls">
+                <button id="btn-create-host" class="btn-outline active">Buat Room</button>
+                <button id="btn-join-room" class="btn-outline">Gabung</button>
+            </div>
+
+            <div id="host-panel" class="panel">
+                <p>Kode Room:</p>
+                <div id="room-code" class="code-display">...</div>
+                
+                <div class="player-list-box">
+                    <h4>Pemain (<span id="player-count">1</span>)</h4>
+                    <ul id="host-player-list" class="styled-list"></ul>
+                </div>
+
+                <p id="waiting-msg" class="blink"><i class="fas fa-spinner fa-spin"></i> Menunggu...</p>
+                <button id="start-game-btn" class="btn-main gradient-green" disabled>Tunggu Min 2 Pemain</button>
+            </div>
+
+            <div id="join-panel" class="panel hidden">
+                <input type="text" id="join-code-input" placeholder="KODE ROOM" class="big-input">
+                <button id="confirm-join" class="btn-main">GABUNG SEKARANG</button>
+                
+                <div id="join-lobby-display" class="hidden">
+                    <p class="blink">Menunggu Host memulai...</p>
+                    <ul id="join-player-list" class="styled-list"></ul>
+                </div>
+            </div>
+
+            <button onclick="location.reload()" class="btn-text"><i class="fas fa-arrow-left"></i> Kembali</button>
+        </div>
+
+        <div id="quiz-area" class="screen">
+            <div class="stats-bar">
+                <div class="stat-item red">
+                    <i class="fas fa-stopwatch"></i> <span id="time-left">30</span>s
+                </div>
+                <div class="stat-item yellow">
+                    <i class="fas fa-star"></i> <span id="current-score">0</span> pts
+                </div>
+            </div>
+
+            <div class="question-card">
+                <span id="q-number" class="badge">Soal 1</span>
+                <p id="q-text"></p> 
+            </div>
+
+            <div id="answer-area" class="options-grid"></div>
+
+            <div id="result-message" class="toast hidden"></div>
+        </div>
+
+        <div id="game-over" class="screen">
+            <i class="fas fa-trophy fa-4x gold-icon"></i>
+            <h2>Permainan Selesai!</h2>
+            <div class="final-score">
+                <span>Skor Kamu</span>
+                <h1 id="final-score">0</h1>
+            </div>
+            <div class="leaderboard-box">
+                <h3>Papan Peringkat</h3>
+                <ul id="leaderboard-list"></ul>
+            </div>
+            <button onclick="location.reload()" class="btn-main">Main Lagi</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
